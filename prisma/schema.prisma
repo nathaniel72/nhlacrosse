@@ -1,0 +1,155 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SubmissionStatus {
+  SUBMITTED
+  REVIEWED
+  RECOMMENDATION_SENT
+  PAID
+  HEAD_RECEIVED
+  STRINGING
+  SHIPPED
+  COMPLETE
+}
+
+enum PlayerLevel {
+  YOUTH
+  MIDDLE_SCHOOL
+  HIGH_SCHOOL
+  CLUB
+  COLLEGE
+  POST_COLLEGE
+}
+
+model Submission {
+  id             String            @id @default(cuid())
+  athleteName    String
+  email          String
+  phone          String?
+  position       String
+  gradYear       Int?
+  level          PlayerLevel
+  team           String?
+  currentStick   String?
+  playingStyle   String
+  filmUrl        String
+  budgetCents    Int?
+  additionalNotes String?
+  status         SubmissionStatus  @default(SUBMITTED)
+  statusToken    String            @unique @default(cuid())
+  restringRequestedAt DateTime?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  recommendation Recommendation?
+  order          Order?
+  statusEvents   StatusEvent[]
+
+  @@index([status, createdAt])
+}
+
+model Recommendation {
+  id               String         @id @default(cuid())
+  submission       Submission     @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  submissionId     String         @unique
+  pocketNotes      String
+  stringNotes      String?
+  priceCents       Int
+  sentAt           DateTime?
+  createdAt        DateTime       @default(now())
+
+  headOptions      HeadOption[]
+  suggestedStrings StringOption[] @relation("RecommendationStrings")
+}
+
+model HeadOption {
+  id               String         @id @default(cuid())
+  recommendation   Recommendation @relation(fields: [recommendationId], references: [id], onDelete: Cascade)
+  recommendationId String
+  name             String
+  notes            String?
+  purchaseLink     String?
+  recommended      Boolean        @default(false)
+  sortOrder        Int            @default(0)
+  createdAt        DateTime       @default(now())
+
+  @@index([recommendationId])
+}
+
+// Small in-stock string catalog the stringer sells directly. Athletes who
+// want a specific color instead order strings themselves alongside the head.
+model StringOption {
+  id          String   @id @default(cuid())
+  name        String
+  color       String?
+  description String?
+  priceCents  Int
+  active      Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  recommendations Recommendation[] @relation("RecommendationStrings")
+}
+
+model Order {
+  id                       String     @id @default(cuid())
+  submission               Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  submissionId             String     @unique
+  stripeCheckoutSessionId  String?    @unique
+  stripePaymentIntentId    String?
+  amountCents              Int
+  paidAt                   DateTime?
+  selectedHeadName         String?
+  selectedHeadNotes        String?
+  selectedHeadPurchaseLink String?
+  // Snapshot of purchased string add-ons: [{ name, color, priceCents }]
+  selectedStrings          Json?
+  shippingName             String?
+  shippingAddressLine1     String?
+  shippingAddressLine2     String?
+  shippingCity             String?
+  shippingState            String?
+  shippingPostalCode       String?
+  shippingCountry          String?
+  trackingNumber           String?
+  trackingCarrier          String?
+  isRestring               Boolean    @default(false)
+  createdAt                DateTime   @default(now())
+  updatedAt                DateTime   @updatedAt
+}
+
+model StatusEvent {
+  id           String            @id @default(cuid())
+  submission   Submission        @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  submissionId String
+  status       SubmissionStatus
+  note         String?
+  createdAt    DateTime          @default(now())
+
+  @@index([submissionId, createdAt])
+}
+
+model GalleryPhoto {
+  id         String   @id @default(cuid())
+  imageUrl   String
+  caption    String?
+  headModel  String?
+  pocketType String?
+  featured   Boolean  @default(false)
+  sortOrder  Int      @default(0)
+  createdAt  DateTime @default(now())
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime @default(now())
+}

@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dev",
+      "runtimeExecutable": "/Users/nathanielhunt/Lacrosse Stringing Website/scripts/dev.sh",
+      "runtimeArgs": [],
+      "port": 3000
+    }
+  ]
+}
