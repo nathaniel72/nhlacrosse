@@ -105,6 +105,7 @@ export async function POST(req: NextRequest) {
     subject: "Your head + pocket recommendation is ready",
     react: RecommendationReadyEmail({
       athleteName: submission.athleteName,
+      hasFilm: !!submission.filmUrl,
       headOptions: recommendation.headOptions,
       pocketNotes: recommendation.pocketNotes,
       stringNotes: recommendation.stringNotes,

@@ -6,6 +6,7 @@ import {
   ADMIN_NOTIFICATION_EMAIL,
   PLAYER_LEVEL_LABELS,
   formatCents,
+  formatShippingAddress,
 } from "@/lib/constants";
 import { SubmissionConfirmationEmail } from "@/lib/email/SubmissionConfirmation";
 import { AdminNewSubmissionEmail } from "@/lib/email/AdminNewSubmission";
@@ -45,9 +46,15 @@ export async function POST(req: NextRequest) {
       team: data.team || null,
       currentStick: data.currentStick || null,
       playingStyle: data.playingStyle,
-      filmUrl: data.filmUrl,
+      filmUrl: data.filmUrl || null,
       budgetCents: data.budgetCents ?? null,
       additionalNotes: data.additionalNotes || null,
+      shippingAddressLine1: data.shippingAddressLine1,
+      shippingAddressLine2: data.shippingAddressLine2 || null,
+      shippingCity: data.shippingCity,
+      shippingState: data.shippingState,
+      shippingPostalCode: data.shippingPostalCode,
+      shippingCountry: data.shippingCountry,
       statusEvents: {
         create: { status: "SUBMITTED" },
       },
@@ -64,6 +71,7 @@ export async function POST(req: NextRequest) {
       subject: "We received your stringing request",
       react: SubmissionConfirmationEmail({
         athleteName: submission.athleteName,
+        hasFilm: !!submission.filmUrl,
         statusUrl,
       }),
     }),
@@ -81,6 +89,7 @@ export async function POST(req: NextRequest) {
         budgetLabel: submission.budgetCents ? formatCents(submission.budgetCents) : null,
         playingStyle: submission.playingStyle,
         filmUrl: submission.filmUrl,
+        shippingAddress: formatShippingAddress(submission),
         adminUrl,
       }),
     }),

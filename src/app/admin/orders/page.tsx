@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { OrderStatusForm } from "@/components/admin/OrderStatusForm";
-import { STATUS_LABELS, formatCents } from "@/lib/constants";
+import { STATUS_LABELS, formatCents, formatShippingAddress } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
 
@@ -46,6 +46,9 @@ export default async function AdminOrdersPage() {
                         .join(", ")}
                     </p>
                   ) : null}
+                  <p className="mt-1 text-sm text-muted">
+                    Ship to: {formatShippingAddress(order.submission)}
+                  </p>
                   {order.trackingNumber ? (
                     <p className="mt-1 text-sm text-muted">
                       Tracking: {order.trackingCarrier} {order.trackingNumber}

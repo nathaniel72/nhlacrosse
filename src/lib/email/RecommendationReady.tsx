@@ -18,6 +18,7 @@ type StringOption = {
 
 export function RecommendationReadyEmail({
   athleteName,
+  hasFilm,
   headOptions,
   pocketNotes,
   stringNotes,
@@ -26,6 +27,7 @@ export function RecommendationReadyEmail({
   payUrl,
 }: {
   athleteName: string;
+  hasFilm: boolean;
   headOptions: HeadOption[];
   pocketNotes: string;
   stringNotes?: string | null;
@@ -39,8 +41,8 @@ export function RecommendationReadyEmail({
       heading={`Here's what I'd run, ${athleteName}`}
     >
       <Text style={emailText}>
-        I watched your film and put together{" "}
-        {headOptions.length > 1 ? "a few options" : "a recommendation"} built
+        I {hasFilm ? "watched your film and" : "went through what you sent over and"} put
+        together {headOptions.length > 1 ? "a few options" : "a recommendation"} built
         around your playing style.
       </Text>
       <Hr />

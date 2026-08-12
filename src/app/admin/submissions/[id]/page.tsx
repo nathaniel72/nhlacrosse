@@ -11,6 +11,7 @@ import {
   PLAYER_LEVEL_LABELS,
   STATUS_LABELS,
   formatCents,
+  formatShippingAddress,
 } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
@@ -92,14 +93,18 @@ export default async function AdminSubmissionDetailPage({
               ) : null
             )}
           </dl>
-          <a
-            href={submission.filmUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-5 inline-flex text-sm font-semibold text-accent hover:underline"
-          >
-            Watch Film &rarr;
-          </a>
+          {submission.filmUrl ? (
+            <a
+              href={submission.filmUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-5 inline-flex text-sm font-semibold text-accent hover:underline"
+            >
+              Watch Film &rarr;
+            </a>
+          ) : (
+            <p className="mt-5 text-sm italic text-muted">No film submitted</p>
+          )}
         </Card>
 
         <Card>
@@ -107,6 +112,11 @@ export default async function AdminSubmissionDetailPage({
           <p className="mt-2 whitespace-pre-wrap text-sm text-muted">
             {submission.playingStyle}
           </p>
+        </Card>
+
+        <Card>
+          <h2 className="font-semibold text-navy">Return Shipping Address</h2>
+          <p className="mt-2 text-sm text-muted">{formatShippingAddress(submission)}</p>
         </Card>
 
         {submission.currentStick ? (

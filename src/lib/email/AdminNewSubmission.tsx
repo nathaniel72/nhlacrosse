@@ -13,6 +13,7 @@ export function AdminNewSubmissionEmail({
   budgetLabel,
   playingStyle,
   filmUrl,
+  shippingAddress,
   adminUrl,
 }: {
   athleteName: string;
@@ -24,7 +25,8 @@ export function AdminNewSubmissionEmail({
   team?: string | null;
   budgetLabel?: string | null;
   playingStyle: string;
-  filmUrl: string;
+  filmUrl?: string | null;
+  shippingAddress: string;
   adminUrl: string;
 }) {
   return (
@@ -46,9 +48,15 @@ export function AdminNewSubmissionEmail({
         {budgetLabel ? ` · Budget: ${budgetLabel}` : ""}
       </Text>
 
-      <a href={filmUrl} style={emailButton}>
-        Watch Film
-      </a>
+      {filmUrl ? (
+        <a href={filmUrl} style={emailButton}>
+          Watch Film
+        </a>
+      ) : (
+        <Text style={{ ...emailText, fontStyle: "italic" }}>
+          No film submitted — review the playing style notes below.
+        </Text>
+      )}
 
       <Hr />
 
@@ -56,6 +64,11 @@ export function AdminNewSubmissionEmail({
         Playing style
       </Text>
       <Text style={emailText}>{playingStyle}</Text>
+
+      <Text style={{ ...emailText, fontWeight: 700, marginBottom: 0 }}>
+        Return shipping address
+      </Text>
+      <Text style={emailText}>{shippingAddress}</Text>
 
       <a href={adminUrl} style={{ ...emailButton, backgroundColor: "#0a0a0a" }}>
         Review &amp; Send Recommendation

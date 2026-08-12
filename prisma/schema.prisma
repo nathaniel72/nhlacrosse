@@ -38,9 +38,16 @@ model Submission {
   team           String?
   currentStick   String?
   playingStyle   String
-  filmUrl        String
+  filmUrl        String?
   budgetCents    Int?
   additionalNotes String?
+  // Where to ship the finished, strung stick back to the athlete.
+  shippingAddressLine1 String?
+  shippingAddressLine2 String?
+  shippingCity         String?
+  shippingState        String?
+  shippingPostalCode   String?
+  shippingCountry      String?
   status         SubmissionStatus  @default(SUBMITTED)
   statusToken    String            @unique @default(cuid())
   restringRequestedAt DateTime?
@@ -110,16 +117,8 @@ model Order {
   selectedHeadPurchaseLink String?
   // Snapshot of purchased string add-ons: [{ name, color, priceCents }]
   selectedStrings          Json?
-  shippingName             String?
-  shippingAddressLine1     String?
-  shippingAddressLine2     String?
-  shippingCity             String?
-  shippingState            String?
-  shippingPostalCode       String?
-  shippingCountry          String?
   trackingNumber           String?
   trackingCarrier          String?
-  isRestring               Boolean    @default(false)
   createdAt                DateTime   @default(now())
   updatedAt                DateTime   @updatedAt
 }

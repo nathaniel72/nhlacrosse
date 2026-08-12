@@ -22,6 +22,12 @@ const initialState = {
   filmUrl: "",
   budgetCents: "",
   additionalNotes: "",
+  shippingAddressLine1: "",
+  shippingAddressLine2: "",
+  shippingCity: "",
+  shippingState: "",
+  shippingPostalCode: "",
+  shippingCountry: "USA",
 };
 
 type FieldErrors = Partial<Record<keyof typeof initialState, string>>;
@@ -184,14 +190,12 @@ export function IntakeForm() {
       <Field
         label="Film Link"
         htmlFor="filmUrl"
-        required
         error={errors.filmUrl}
-        hint="Hudl, YouTube, Instagram, or Google Drive link to your highlights or game film"
+        hint="Optional — Hudl, YouTube, Instagram, or Google Drive link to your highlights or game film. No film? Just give me as much detail as you can in Playing Style above."
       >
         <Input
           id="filmUrl"
           type="url"
-          required
           placeholder="https://"
           value={values.filmUrl}
           onChange={(e) => update("filmUrl", e.target.value)}
@@ -206,6 +210,68 @@ export function IntakeForm() {
         />
       </Field>
 
+      <div>
+        <h3 className="font-semibold text-navy">Return Shipping Address</h3>
+        <p className="mt-1 text-sm text-muted">
+          Where I&apos;ll ship your finished stick once it&apos;s strung.
+        </p>
+        <div className="mt-4 grid gap-5 sm:grid-cols-2">
+          <Field
+            label="Street Address"
+            htmlFor="shippingAddressLine1"
+            required
+            error={errors.shippingAddressLine1}
+            hint="Not a P.O. box — needs to be a shippable address"
+          >
+            <Input
+              id="shippingAddressLine1"
+              required
+              value={values.shippingAddressLine1}
+              onChange={(e) => update("shippingAddressLine1", e.target.value)}
+            />
+          </Field>
+          <Field label="Apt / Unit" htmlFor="shippingAddressLine2" error={errors.shippingAddressLine2}>
+            <Input
+              id="shippingAddressLine2"
+              value={values.shippingAddressLine2}
+              onChange={(e) => update("shippingAddressLine2", e.target.value)}
+            />
+          </Field>
+          <Field label="City" htmlFor="shippingCity" required error={errors.shippingCity}>
+            <Input
+              id="shippingCity"
+              required
+              value={values.shippingCity}
+              onChange={(e) => update("shippingCity", e.target.value)}
+            />
+          </Field>
+          <Field label="State" htmlFor="shippingState" required error={errors.shippingState}>
+            <Input
+              id="shippingState"
+              required
+              value={values.shippingState}
+              onChange={(e) => update("shippingState", e.target.value)}
+            />
+          </Field>
+          <Field label="ZIP Code" htmlFor="shippingPostalCode" required error={errors.shippingPostalCode}>
+            <Input
+              id="shippingPostalCode"
+              required
+              value={values.shippingPostalCode}
+              onChange={(e) => update("shippingPostalCode", e.target.value)}
+            />
+          </Field>
+          <Field label="Country" htmlFor="shippingCountry" required error={errors.shippingCountry}>
+            <Input
+              id="shippingCountry"
+              required
+              value={values.shippingCountry}
+              onChange={(e) => update("shippingCountry", e.target.value)}
+            />
+          </Field>
+        </div>
+      </div>
+
       {formError ? (
         <p className="rounded-lg bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
           {formError}
@@ -216,8 +282,8 @@ export function IntakeForm() {
         {submitting ? "Submitting..." : "Submit for Review"}
       </Button>
       <p className="text-xs text-muted">
-        I&apos;ll review your film and send a head + pocket recommendation within
-        48 hours.
+        I&apos;ll review everything and send a head + pocket recommendation
+        within 48 hours.
       </p>
     </form>
   );

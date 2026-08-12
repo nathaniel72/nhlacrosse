@@ -4,18 +4,21 @@ import { EmailLayout, emailText } from "./Layout";
 
 export function SubmissionConfirmationEmail({
   athleteName,
+  hasFilm,
   statusUrl,
 }: {
   athleteName: string;
+  hasFilm: boolean;
   statusUrl: string;
 }) {
   return (
     <EmailLayout
       preview="We received your stringing request"
-      heading={`Thanks, ${athleteName} — your film is in`}
+      heading={hasFilm ? `Thanks, ${athleteName} — your film is in` : `Thanks, ${athleteName} — got your submission`}
     >
       <Text style={emailText}>
-        I&apos;ve got your submission and I&apos;ll review your film and put together a
+        I&apos;ve got your submission and I&apos;ll review{" "}
+        {hasFilm ? "your film" : "everything you sent over"} and put together a
         head and pocket recommendation within 48 hours.
       </Text>
       <Text style={emailText}>

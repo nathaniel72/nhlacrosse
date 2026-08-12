@@ -32,7 +32,9 @@ export const submissionSchema = z.object({
   filmUrl: z
     .string()
     .trim()
-    .url("Paste a valid link to your film (Hudl, YouTube, Instagram, Drive, etc.)"),
+    .url("Paste a valid link to your film (Hudl, YouTube, Instagram, Drive, etc.)")
+    .optional()
+    .or(z.literal("")),
   budgetCents: z
     .string()
     .trim()
@@ -40,6 +42,12 @@ export const submissionSchema = z.object({
     .or(z.literal(""))
     .transform((v) => (v ? Math.round(Number(v) * 100) : undefined)),
   additionalNotes: z.string().trim().optional().or(z.literal("")),
+  shippingAddressLine1: z.string().trim().min(1, "Enter your street address"),
+  shippingAddressLine2: z.string().trim().optional().or(z.literal("")),
+  shippingCity: z.string().trim().min(1, "Enter your city"),
+  shippingState: z.string().trim().min(1, "Enter your state"),
+  shippingPostalCode: z.string().trim().min(1, "Enter your ZIP code"),
+  shippingCountry: z.string().trim().min(1, "Enter your country"),
 });
 
 export type SubmissionInput = z.infer<typeof submissionSchema>;

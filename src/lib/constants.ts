@@ -29,7 +29,7 @@ export const PLAYER_LEVEL_LABELS: Record<string, string> = {
 
 export const STATUS_LABELS: Record<string, string> = {
   SUBMITTED: "Submitted",
-  REVIEWED: "Film Reviewed",
+  REVIEWED: "Reviewed",
   RECOMMENDATION_SENT: "Recommendation Sent",
   PAID: "Payment Received",
   HEAD_RECEIVED: "Head Received",
@@ -54,4 +54,20 @@ export function formatCents(cents: number): string {
     style: "currency",
     currency: "USD",
   });
+}
+
+export function formatShippingAddress(address: {
+  shippingAddressLine1: string | null;
+  shippingAddressLine2: string | null;
+  shippingCity: string | null;
+  shippingState: string | null;
+  shippingPostalCode: string | null;
+  shippingCountry: string | null;
+}): string {
+  const cityStateZip = [address.shippingCity, address.shippingState, address.shippingPostalCode]
+    .filter(Boolean)
+    .join(", ");
+  return [address.shippingAddressLine1, address.shippingAddressLine2, cityStateZip, address.shippingCountry]
+    .filter(Boolean)
+    .join(", ");
 }

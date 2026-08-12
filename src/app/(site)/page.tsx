@@ -6,8 +6,8 @@ import { StepVisual } from "@/components/StepVisual";
 
 const steps = [
   {
-    title: "Submit your film",
-    body: "Tell me about your game and drop a link to your highlights or film.",
+    title: "Tell me about your game",
+    body: "Fill out the form and drop a link to your film, if you've got one.",
     visual: "film",
   },
   {
@@ -35,9 +35,9 @@ export default function Home() {
               A stick strung around <span className="text-accent">how you play</span>, not just what&apos;s trending.
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-lg text-muted">
-              Send me your film. I&apos;ll recommend the head and pocket that fits
-              your game, string it myself, and back it with a free restring if
-              it isn&apos;t right.
+              Send me your film if you&apos;ve got it — I&apos;ll recommend the head
+              and pocket that fits your game either way, string it myself, and
+              back it with a free restring if it isn&apos;t right.
             </p>
             <a
               href="#intake-form"
