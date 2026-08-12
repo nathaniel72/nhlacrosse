@@ -27,6 +27,7 @@ export default async function PayPage({
   if (!submission || !submission.recommendation) notFound();
 
   const alreadyPaid = !!submission.order?.paidAt;
+  const isRestringOnly = submission.serviceType === "RESTRING_ONLY";
 
   return (
     <div className="container-page max-w-lg py-16 sm:py-20">
@@ -73,7 +74,9 @@ export default async function PayPage({
       </Card>
 
       <Card className="mt-6">
-        <p className="text-muted">Ship the head you order to</p>
+        <p className="text-muted">
+          {isRestringOnly ? "Ship your head to" : "Ship the head you order to"}
+        </p>
         <p className="mt-2 font-semibold text-navy">
           {STRINGER_SHIP_TO.name}
           <br />
@@ -90,9 +93,10 @@ export default async function PayPage({
           {STRINGER_SHIP_TO.country}
         </p>
         <p className="mt-3 text-sm text-muted">
-          Order it whenever works for you — you don&apos;t need to wait until
-          you&apos;ve paid the stringing fee. Once it arrives, I&apos;ll get to
-          stringing and keep you posted.
+          {isRestringOnly
+            ? "Send it whenever works for you."
+            : "Order it whenever works for you — you don't need to wait until you've paid the stringing fee."}{" "}
+          Once it arrives, I&apos;ll get to stringing and keep you posted.
         </p>
       </Card>
 

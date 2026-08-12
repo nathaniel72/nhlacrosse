@@ -78,7 +78,12 @@ export default async function AdminSubmissionDetailPage({
               {submission.athleteName}
             </h1>
           </div>
-          <Badge>{STATUS_LABELS[submission.status] ?? submission.status}</Badge>
+          <div className="flex items-center gap-2">
+            {submission.serviceType === "RESTRING_ONLY" ? (
+              <Badge tone="accent">Restring Only</Badge>
+            ) : null}
+            <Badge>{STATUS_LABELS[submission.status] ?? submission.status}</Badge>
+          </div>
         </div>
 
         <Card>
@@ -121,7 +126,9 @@ export default async function AdminSubmissionDetailPage({
 
         {submission.currentStick ? (
           <Card>
-            <h2 className="font-semibold text-navy">Current Stick</h2>
+            <h2 className="font-semibold text-navy">
+              {submission.serviceType === "RESTRING_ONLY" ? "Head Being Sent In" : "Current Stick"}
+            </h2>
             <p className="mt-2 whitespace-pre-wrap text-sm text-muted">
               {submission.currentStick}
             </p>
@@ -214,6 +221,7 @@ export default async function AdminSubmissionDetailPage({
               <RecommendationForm
                 submissionId={submission.id}
                 position={submission.position}
+                isRestringOnly={submission.serviceType === "RESTRING_ONLY"}
                 stringCatalog={stringCatalog}
               />
             </div>

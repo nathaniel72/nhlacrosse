@@ -25,16 +25,18 @@ const emptyHeadOption: HeadOptionDraft = {
 export function RecommendationForm({
   submissionId,
   position,
+  isRestringOnly,
   stringCatalog,
 }: {
   submissionId: string;
   position: string;
+  isRestringOnly: boolean;
   stringCatalog: { id: string; name: string; color: string | null; priceCents: number }[];
 }) {
   const router = useRouter();
-  const [headOptions, setHeadOptions] = React.useState<HeadOptionDraft[]>([
-    { ...emptyHeadOption, recommended: true },
-  ]);
+  const [headOptions, setHeadOptions] = React.useState<HeadOptionDraft[]>(
+    isRestringOnly ? [] : [{ ...emptyHeadOption, recommended: true }]
+  );
   const [pocketNotes, setPocketNotes] = React.useState("");
   const [stringNotes, setStringNotes] = React.useState("");
   const [selectedStringIds, setSelectedStringIds] = React.useState<string[]>([]);
@@ -104,6 +106,12 @@ export function RecommendationForm({
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+      {isRestringOnly ? (
+        <p className="rounded-lg bg-surface-muted px-4 py-3 text-sm text-muted">
+          Restring only — no head to recommend. Just pocket notes, strings,
+          and the fee below.
+        </p>
+      ) : (
       <div className="flex flex-col gap-4">
         <p className="text-sm font-semibold text-navy">Head Options</p>
         {headOptions.map((head, i) => (
@@ -167,6 +175,7 @@ export function RecommendationForm({
           </Button>
         ) : null}
       </div>
+      )}
 
       <Field label="Pocket Notes" htmlFor="pocketNotes" required>
         {POSITION_GUIDANCE[position] ? (

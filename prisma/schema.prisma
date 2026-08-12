@@ -27,11 +27,17 @@ enum PlayerLevel {
   POST_COLLEGE
 }
 
+enum ServiceType {
+  NEW_HEAD
+  RESTRING_ONLY
+}
+
 model Submission {
   id             String            @id @default(cuid())
   athleteName    String
   email          String
   phone          String?
+  serviceType    ServiceType       @default(NEW_HEAD)
   position       String
   gradYear       Int?
   level          PlayerLevel
@@ -117,6 +123,7 @@ model Order {
   selectedHeadPurchaseLink String?
   // Snapshot of purchased string add-ons: [{ name, color, priceCents }]
   selectedStrings          Json?
+  rushRequested            Boolean    @default(false)
   trackingNumber           String?
   trackingCarrier          String?
   createdAt                DateTime   @default(now())
@@ -149,6 +156,26 @@ model GalleryPhoto {
   sortOrder  Int            @default(0)
   heroRole   HeroImageRole?
   createdAt  DateTime       @default(now())
+}
+
+model Testimonial {
+  id           String   @id @default(cuid())
+  athleteName  String
+  resultOrTeam String?
+  quote        String
+  featured     Boolean  @default(true)
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+}
+
+model TeamInquiry {
+  id          String   @id @default(cuid())
+  contactName String
+  teamOrOrg   String
+  email       String
+  phone       String?
+  message     String
+  createdAt   DateTime @default(now())
 }
 
 model AdminUser {

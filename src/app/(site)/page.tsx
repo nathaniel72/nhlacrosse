@@ -1,8 +1,10 @@
+import { prisma } from "@/lib/prisma";
 import { IntakeForm } from "@/components/IntakeForm";
 import { Card } from "@/components/ui/Card";
 import { PositionShowcase } from "@/components/PositionShowcase";
 import { Reveal } from "@/components/Reveal";
 import { StepVisual } from "@/components/StepVisual";
+import { Testimonials } from "@/components/Testimonials";
 
 const steps = [
   {
@@ -17,12 +19,19 @@ const steps = [
   },
   {
     title: "Order & ship",
-    body: "Buy the head and ship it to me. I string it and ship your finished stick back.",
+    body: "Buy the head and ship it to me. I string it and ship it back within 3-5 days of it arriving.",
     visual: "shipping",
   },
 ] as const;
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const testimonials = await prisma.testimonial.findMany({
+    where: { featured: true },
+    orderBy: { sortOrder: "asc" },
+  });
+
   return (
     <div>
       <section className="hero-texture border-b border-border bg-white">
@@ -37,7 +46,11 @@ export default function Home() {
             <p className="mx-auto mt-5 max-w-xl text-lg text-muted">
               Send me your film if you&apos;ve got it — I&apos;ll recommend the head
               and pocket that fits your game either way, string it myself, and
-              back it with a free restring if it isn&apos;t right.
+              back it with a free restring within 30 days if it isn&apos;t right.
+            </p>
+            <p className="mt-3 text-sm font-medium text-muted">
+              Film review &amp; recommendation: always free. Stringing starts
+              at $30, depending on complexity.
             </p>
             <a
               href="#intake-form"
@@ -88,6 +101,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <Testimonials testimonials={testimonials} />
 
       <section id="intake-form" className="container-page py-16 sm:py-20 scroll-mt-16">
         <div className="mx-auto max-w-2xl">

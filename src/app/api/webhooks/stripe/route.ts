@@ -57,6 +57,8 @@ export async function POST(req: NextRequest) {
           react: PaymentReceivedEmail({
             athleteName: submission.athleteName,
             headName: order.selectedHeadName ?? "your head",
+            isRestringOnly: submission.serviceType === "RESTRING_ONLY",
+            rushRequested: order.rushRequested,
             statusUrl: `${siteUrl}/status/${submission.statusToken}`,
           }),
         });

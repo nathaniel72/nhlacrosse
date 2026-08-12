@@ -1,7 +1,7 @@
 import { Hr, Text } from "@react-email/components";
 import * as React from "react";
 import { EmailLayout, emailButton, emailText } from "./Layout";
-import { STRINGER_SHIP_TO, formatCents } from "@/lib/constants";
+import { STRINGER_SHIP_TO, formatCents, RESTRING_GUARANTEE_DAYS } from "@/lib/constants";
 
 type HeadOption = {
   name: string;
@@ -19,6 +19,7 @@ type StringOption = {
 export function RecommendationReadyEmail({
   athleteName,
   hasFilm,
+  isRestringOnly,
   headOptions,
   pocketNotes,
   stringNotes,
@@ -28,6 +29,7 @@ export function RecommendationReadyEmail({
 }: {
   athleteName: string;
   hasFilm: boolean;
+  isRestringOnly: boolean;
   headOptions: HeadOption[];
   pocketNotes: string;
   stringNotes?: string | null;
@@ -37,30 +39,34 @@ export function RecommendationReadyEmail({
 }) {
   return (
     <EmailLayout
-      preview="Your head + pocket recommendation is ready"
+      preview={isRestringOnly ? "Your restring plan is ready" : "Your head + pocket recommendation is ready"}
       heading={`Here's what I'd run, ${athleteName}`}
     >
       <Text style={emailText}>
         I {hasFilm ? "watched your film and" : "went through what you sent over and"} put
-        together {headOptions.length > 1 ? "a few options" : "a recommendation"} built
+        together {isRestringOnly ? "a restring plan" : headOptions.length > 1 ? "a few options" : "a recommendation"} built
         around your playing style.
       </Text>
-      <Hr />
-      {headOptions.map((head, i) => (
-        <Text key={i} style={{ ...emailText, marginBottom: 4 }}>
-          <strong>
-            {head.name}
-            {head.recommended && headOptions.length > 1 ? " (top pick)" : ""}
-          </strong>
-          {head.notes ? <>: {head.notes}</> : null}
-          {head.purchaseLink ? (
-            <>
-              {" — "}
-              <a href={head.purchaseLink}>where to buy</a>
-            </>
-          ) : null}
-        </Text>
-      ))}
+      {headOptions.length > 0 ? (
+        <>
+          <Hr />
+          {headOptions.map((head, i) => (
+            <Text key={i} style={{ ...emailText, marginBottom: 4 }}>
+              <strong>
+                {head.name}
+                {head.recommended && headOptions.length > 1 ? " (top pick)" : ""}
+              </strong>
+              {head.notes ? <>: {head.notes}</> : null}
+              {head.purchaseLink ? (
+                <>
+                  {" — "}
+                  <a href={head.purchaseLink}>where to buy</a>
+                </>
+              ) : null}
+            </Text>
+          ))}
+        </>
+      ) : null}
       <Hr />
       <Text style={emailText}>Pocket: {pocketNotes}</Text>
       {stringNotes ? <Text style={emailText}>Strings: {stringNotes}</Text> : null}
@@ -73,7 +79,7 @@ export function RecommendationReadyEmail({
             <Text key={i} style={emailText}>
               {s.name}
               {s.color ? ` — ${s.color}` : ""} ({formatCents(s.priceCents)}) — add it
-              at checkout, or order your own color when you buy the head.
+              at checkout{isRestringOnly ? "" : ", or order your own color when you buy the head"}.
             </Text>
           ))}
         </>
@@ -83,7 +89,7 @@ export function RecommendationReadyEmail({
         Stringing fee: <strong>{priceLabel}</strong>
       </Text>
       <Text style={{ ...emailText, fontWeight: 700, marginBottom: 0 }}>
-        Ship the head you order to:
+        {isRestringOnly ? "Ship your head to:" : "Ship the head you order to:"}
       </Text>
       <Text style={emailText}>
         {STRINGER_SHIP_TO.name}
@@ -101,11 +107,14 @@ export function RecommendationReadyEmail({
         {STRINGER_SHIP_TO.country}
       </Text>
       <Text style={emailText}>
-        You can order it any time — no need to wait until you&apos;ve paid. If
-        the pocket isn&apos;t right when you get it, I&apos;ll restring it for free.
+        {isRestringOnly
+          ? "Send it whenever works for you. "
+          : "You can order it any time — no need to wait until you've paid. "}
+        If the pocket isn&apos;t right when you get it, I&apos;ll restring it for
+        free within {RESTRING_GUARANTEE_DAYS} days.
       </Text>
       <a href={payUrl} style={emailButton}>
-        Choose Your Head &amp; Pay Stringing Fee
+        {isRestringOnly ? "Pay Stringing Fee" : "Choose Your Head & Pay Stringing Fee"}
       </a>
     </EmailLayout>
   );

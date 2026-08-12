@@ -68,6 +68,9 @@ export default async function AdminDashboardPage() {
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
+                    {s.serviceType === "RESTRING_ONLY" ? (
+                      <Badge tone="accent">Restring Only</Badge>
+                    ) : null}
                     {overdue ? <Badge tone="warn">Past SLA</Badge> : null}
                     <Badge tone={statusTone(s.status)}>
                       {STATUS_LABELS[s.status] ?? s.status}

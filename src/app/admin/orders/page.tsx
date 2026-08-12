@@ -60,9 +60,12 @@ export default async function AdminOrdersPage() {
                     </p>
                   ) : null}
                 </div>
-                <Badge tone="accent">
-                  {STATUS_LABELS[order.submission.status] ?? order.submission.status}
-                </Badge>
+                <div className="flex flex-col items-end gap-2">
+                  {order.rushRequested ? <Badge tone="warn">Rush</Badge> : null}
+                  <Badge tone="accent">
+                    {STATUS_LABELS[order.submission.status] ?? order.submission.status}
+                  </Badge>
+                </div>
               </div>
               <OrderStatusForm orderId={order.id} currentStatus={order.submission.status} />
             </Card>

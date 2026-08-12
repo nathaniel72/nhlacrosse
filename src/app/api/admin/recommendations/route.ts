@@ -34,7 +34,14 @@ export async function POST(req: NextRequest) {
 
   const data = parsed.data;
 
-  if (!data.headOptions.some((h) => h.recommended)) {
+  if (submission.serviceType === "NEW_HEAD" && data.headOptions.length === 0) {
+    return NextResponse.json(
+      { message: "Add at least one head option" },
+      { status: 400 }
+    );
+  }
+
+  if (data.headOptions.length > 0 && !data.headOptions.some((h) => h.recommended)) {
     data.headOptions[0].recommended = true;
   }
 
@@ -106,6 +113,7 @@ export async function POST(req: NextRequest) {
     react: RecommendationReadyEmail({
       athleteName: submission.athleteName,
       hasFilm: !!submission.filmUrl,
+      isRestringOnly: submission.serviceType === "RESTRING_ONLY",
       headOptions: recommendation.headOptions,
       pocketNotes: recommendation.pocketNotes,
       stringNotes: recommendation.stringNotes,

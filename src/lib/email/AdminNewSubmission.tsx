@@ -6,6 +6,7 @@ export function AdminNewSubmissionEmail({
   athleteName,
   email,
   phone,
+  isRestringOnly,
   level,
   position,
   gradYear,
@@ -19,6 +20,7 @@ export function AdminNewSubmissionEmail({
   athleteName: string;
   email: string;
   phone?: string | null;
+  isRestringOnly: boolean;
   level: string;
   position: string;
   gradYear?: number | null;
@@ -34,6 +36,11 @@ export function AdminNewSubmissionEmail({
       preview={`New submission from ${athleteName}`}
       heading="New stringing request"
     >
+      {isRestringOnly ? (
+        <Text style={{ ...emailText, fontWeight: 700, color: "#2563eb", marginBottom: 0 }}>
+          RESTRING ONLY — no head recommendation needed
+        </Text>
+      ) : null}
       <Text style={{ ...emailText, fontWeight: 700, marginBottom: 0 }}>
         {athleteName}
       </Text>

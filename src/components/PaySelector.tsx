@@ -2,7 +2,12 @@
 
 import * as React from "react";
 import { Button } from "@/components/ui/Button";
-import { formatCents } from "@/lib/constants";
+import {
+  formatCents,
+  RUSH_FEE_CENTS,
+  STANDARD_STRINGING_DAYS,
+  RUSH_STRINGING_DAYS,
+} from "@/lib/constants";
 
 type HeadOption = {
   id: string;
@@ -33,6 +38,7 @@ export function PaySelector({
   const defaultHead = headOptions.find((h) => h.recommended) ?? headOptions[0];
   const [selectedHeadId, setSelectedHeadId] = React.useState(defaultHead?.id ?? "");
   const [selectedStringIds, setSelectedStringIds] = React.useState<string[]>([]);
+  const [rush, setRush] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
 
@@ -45,10 +51,10 @@ export function PaySelector({
   const stringsTotal = suggestedStrings
     .filter((s) => selectedStringIds.includes(s.id))
     .reduce((sum, s) => sum + s.priceCents, 0);
-  const total = stringingFeeCents + stringsTotal;
+  const total = stringingFeeCents + stringsTotal + (rush ? RUSH_FEE_CENTS : 0);
 
   async function handlePay() {
-    if (!selectedHeadId) {
+    if (headOptions.length > 0 && !selectedHeadId) {
       setError("Choose a head first.");
       return;
     }
@@ -62,6 +68,7 @@ export function PaySelector({
           token,
           headOptionId: selectedHeadId,
           stringOptionIds: selectedStringIds,
+          rush,
         }),
       });
       const data = await res.json();
@@ -81,51 +88,53 @@ export function PaySelector({
 
   return (
     <div className="flex flex-col gap-6">
-      <div>
-        <p className="text-sm font-semibold text-navy">
-          {headOptions.length > 1 ? "Choose Your Head" : "Recommended Head"}
-        </p>
-        <div className="mt-3 flex flex-col gap-3">
-          {headOptions.map((head) => {
-            const selected = head.id === selectedHeadId;
-            return (
-              <label
-                key={head.id}
-                className={`flex cursor-pointer flex-col gap-1 rounded-xl border p-4 transition ${
-                  selected ? "border-accent ring-2 ring-accent/20" : "border-border"
-                }`}
-              >
-                <span className="flex items-center gap-2">
-                  <input
-                    type="radio"
-                    name="headOption"
-                    checked={selected}
-                    onChange={() => setSelectedHeadId(head.id)}
-                  />
-                  <span className="font-semibold text-navy">{head.name}</span>
-                  {head.recommended ? (
-                    <span className="text-xs font-semibold text-accent">TOP PICK</span>
+      {headOptions.length > 0 ? (
+        <div>
+          <p className="text-sm font-semibold text-navy">
+            {headOptions.length > 1 ? "Choose Your Head" : "Recommended Head"}
+          </p>
+          <div className="mt-3 flex flex-col gap-3">
+            {headOptions.map((head) => {
+              const selected = head.id === selectedHeadId;
+              return (
+                <label
+                  key={head.id}
+                  className={`flex cursor-pointer flex-col gap-1 rounded-xl border p-4 transition ${
+                    selected ? "border-accent ring-2 ring-accent/20" : "border-border"
+                  }`}
+                >
+                  <span className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      name="headOption"
+                      checked={selected}
+                      onChange={() => setSelectedHeadId(head.id)}
+                    />
+                    <span className="font-semibold text-navy">{head.name}</span>
+                    {head.recommended ? (
+                      <span className="text-xs font-semibold text-accent">TOP PICK</span>
+                    ) : null}
+                  </span>
+                  {head.notes ? (
+                    <span className="pl-6 text-sm text-muted">{head.notes}</span>
                   ) : null}
-                </span>
-                {head.notes ? (
-                  <span className="pl-6 text-sm text-muted">{head.notes}</span>
-                ) : null}
-                {head.purchaseLink ? (
-                  <a
-                    href={head.purchaseLink}
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="pl-6 text-sm font-semibold text-accent hover:underline"
-                  >
-                    Where to buy it &rarr;
-                  </a>
-                ) : null}
-              </label>
-            );
-          })}
+                  {head.purchaseLink ? (
+                    <a
+                      href={head.purchaseLink}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="pl-6 text-sm font-semibold text-accent hover:underline"
+                    >
+                      Where to buy it &rarr;
+                    </a>
+                  ) : null}
+                </label>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      ) : null}
 
       {suggestedStrings.length > 0 ? (
         <div>
@@ -156,6 +165,17 @@ export function PaySelector({
         </div>
       ) : null}
 
+      <div>
+        <p className="text-sm font-semibold text-navy">Turnaround</p>
+        <label className="mt-3 flex items-center justify-between rounded-lg border border-border px-3 py-2 text-sm">
+          <span className="flex items-center gap-2">
+            <input type="checkbox" checked={rush} onChange={(e) => setRush(e.target.checked)} />
+            Rush it ({RUSH_STRINGING_DAYS} instead of {STANDARD_STRINGING_DAYS})
+          </span>
+          <span className="text-muted">+{formatCents(RUSH_FEE_CENTS)}</span>
+        </label>
+      </div>
+
       <div className="border-t border-border pt-4">
         <div className="flex items-center justify-between text-sm">
           <span className="text-muted">Stringing fee</span>
@@ -165,6 +185,12 @@ export function PaySelector({
           <div className="mt-1 flex items-center justify-between text-sm">
             <span className="text-muted">Strings</span>
             <span className="text-navy">{formatCents(stringsTotal)}</span>
+          </div>
+        ) : null}
+        {rush ? (
+          <div className="mt-1 flex items-center justify-between text-sm">
+            <span className="text-muted">Rush</span>
+            <span className="text-navy">+{formatCents(RUSH_FEE_CENTS)}</span>
           </div>
         ) : null}
         <div className="mt-2 flex items-center justify-between">

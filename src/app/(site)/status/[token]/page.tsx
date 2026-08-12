@@ -4,7 +4,12 @@ import { prisma } from "@/lib/prisma";
 import { Card } from "@/components/ui/Card";
 import { ButtonLink } from "@/components/ui/Button";
 import { RestringRequestButton } from "@/components/RestringRequestButton";
-import { STATUS_LABELS, STATUS_ORDER, formatCents } from "@/lib/constants";
+import {
+  STATUS_LABELS,
+  STATUS_ORDER,
+  formatCents,
+  RESTRING_GUARANTEE_DAYS,
+} from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
 
@@ -142,7 +147,8 @@ export default async function StatusPage({
       {canRequestRestring ? (
         <div className="mt-8">
           <p className="mb-3 text-sm text-muted">
-            Pocket not feeling right? It&apos;s on me.
+            Pocket not feeling right? It&apos;s on me — one free restring within{" "}
+            {RESTRING_GUARANTEE_DAYS} days of delivery.
           </p>
           {submission.restringRequestedAt ? (
             <p className="rounded-lg bg-surface-muted px-4 py-3 text-sm text-muted">

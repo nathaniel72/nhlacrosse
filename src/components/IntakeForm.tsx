@@ -13,6 +13,7 @@ const initialState = {
   athleteName: "",
   email: "",
   phone: "",
+  serviceType: "NEW_HEAD" as "NEW_HEAD" | "RESTRING_ONLY",
   position: "",
   gradYear: "",
   level: "",
@@ -41,6 +42,10 @@ export function IntakeForm() {
 
   function update<K extends keyof typeof initialState>(key: K, value: string) {
     setValues((prev) => ({ ...prev, [key]: value }));
+  }
+
+  function setServiceType(serviceType: "NEW_HEAD" | "RESTRING_ONLY") {
+    setValues((prev) => ({ ...prev, serviceType }));
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -74,8 +79,40 @@ export function IntakeForm() {
     }
   }
 
+  const isRestringOnly = values.serviceType === "RESTRING_ONLY";
+
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+      <div>
+        <p className="text-sm font-medium text-navy">What do you need?</p>
+        <div className="mt-2 grid gap-3 sm:grid-cols-2">
+          <button
+            type="button"
+            onClick={() => setServiceType("NEW_HEAD")}
+            className={`rounded-xl border p-4 text-left transition ${
+              !isRestringOnly ? "border-accent ring-2 ring-accent/20" : "border-border"
+            }`}
+          >
+            <p className="font-semibold text-navy">I need a head recommendation</p>
+            <p className="mt-1 text-sm text-muted">
+              I&apos;ll recommend a head + pocket, you order it and ship it to me.
+            </p>
+          </button>
+          <button
+            type="button"
+            onClick={() => setServiceType("RESTRING_ONLY")}
+            className={`rounded-xl border p-4 text-left transition ${
+              isRestringOnly ? "border-accent ring-2 ring-accent/20" : "border-border"
+            }`}
+          >
+            <p className="font-semibold text-navy">I already have a head</p>
+            <p className="mt-1 text-sm text-muted">
+              Just restring it — no need to buy anything new.
+            </p>
+          </button>
+        </div>
+      </div>
+
       <div className="grid gap-5 sm:grid-cols-2">
         <Field label="Athlete Name" htmlFor="athleteName" required error={errors.athleteName}>
           <Input
@@ -160,13 +197,19 @@ export function IntakeForm() {
       </div>
 
       <Field
-        label="Current Stick Setup"
+        label={isRestringOnly ? "The Head You're Sending In" : "Current Stick Setup"}
         htmlFor="currentStick"
+        required={isRestringOnly}
         error={errors.currentStick}
-        hint="Head, shaft, and current pocket, if you have one"
+        hint={
+          isRestringOnly
+            ? "Head brand/model and its current condition, so I know what to expect"
+            : "Head, shaft, and current pocket, if you have one"
+        }
       >
         <Textarea
           id="currentStick"
+          required={isRestringOnly}
           value={values.currentStick}
           onChange={(e) => update("currentStick", e.target.value)}
         />
@@ -213,7 +256,8 @@ export function IntakeForm() {
       <div>
         <h3 className="font-semibold text-navy">Return Shipping Address</h3>
         <p className="mt-1 text-sm text-muted">
-          Where I&apos;ll ship your finished stick once it&apos;s strung.
+          Where I&apos;ll ship your finished stick once it&apos;s strung. U.S.
+          addresses only for now.
         </p>
         <div className="mt-4 grid gap-5 sm:grid-cols-2">
           <Field
