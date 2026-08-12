@@ -1,45 +1,40 @@
-import { prisma } from "@/lib/prisma";
 import { IntakeForm } from "@/components/IntakeForm";
 import { Card } from "@/components/ui/Card";
-import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
 import { PositionShowcase } from "@/components/PositionShowcase";
 import { Reveal } from "@/components/Reveal";
+import { StepVisual } from "@/components/StepVisual";
 
 const steps = [
   {
     title: "Submit your film",
     body: "Tell me about your game and drop a link to your highlights or film.",
+    visual: "film",
   },
   {
     title: "Get a recommendation",
     body: "Within 48 hours I'll send a head + pocket built around how you actually play.",
+    visual: "recommendation",
   },
   {
     title: "Order & ship",
     body: "Buy the head and ship it to me. I string it and ship your finished stick back.",
+    visual: "shipping",
   },
-];
+] as const;
 
-export const dynamic = "force-dynamic";
-
-export default async function Home() {
-  const [beforePhoto, afterPhoto] = await Promise.all([
-    prisma.galleryPhoto.findFirst({ where: { heroRole: "BEFORE" } }),
-    prisma.galleryPhoto.findFirst({ where: { heroRole: "AFTER" } }),
-  ]);
-
+export default function Home() {
   return (
     <div>
       <section className="hero-texture border-b border-border bg-white">
-        <div className="container-page grid gap-10 py-16 sm:py-24 lg:grid-cols-2 lg:items-center">
-          <div>
+        <div className="container-page py-16 sm:py-24">
+          <div className="mx-auto max-w-2xl text-center">
             <p className="text-sm font-semibold uppercase tracking-widest text-accent">
               15 years stringing &middot; former Dick&apos;s Sporting Goods lacrosse specialist
             </p>
             <h1 className="mt-4 text-4xl font-bold leading-tight text-navy sm:text-5xl">
               A stick strung around <span className="text-accent">how you play</span>, not just what&apos;s trending.
             </h1>
-            <p className="mt-5 max-w-xl text-lg text-muted">
+            <p className="mx-auto mt-5 max-w-xl text-lg text-muted">
               Send me your film. I&apos;ll recommend the head and pocket that fits
               your game, string it myself, and back it with a free restring if
               it isn&apos;t right.
@@ -51,10 +46,6 @@ export default async function Home() {
               Start Your Request
             </a>
           </div>
-          <BeforeAfterSlider
-            beforeSrc={beforePhoto?.imageUrl}
-            afterSrc={afterPhoto?.imageUrl}
-          />
         </div>
       </section>
 
@@ -81,7 +72,8 @@ export default async function Home() {
             {steps.map((step, i) => (
               <Reveal key={step.title} delayMs={i * 100}>
                 <Card>
-                  <div className="flex items-start gap-4">
+                  <StepVisual variant={step.visual} />
+                  <div className="mt-4 flex items-start gap-4">
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-bold text-white">
                       {i + 1}
                     </span>

@@ -7,7 +7,7 @@ import { Input, Select, Textarea } from "@/components/ui/inputs";
 import { Button } from "@/components/ui/Button";
 import { PLAYER_LEVEL_LABELS } from "@/lib/constants";
 
-const POSITIONS = ["Attack", "Midfield", "Defense", "Goalie", "FOGO", "LSM"];
+const POSITIONS = ["Attack", "Midfield", "Defense", "FOGO", "LSM"];
 
 const initialState = {
   athleteName: "",

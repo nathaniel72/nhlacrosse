@@ -80,3 +80,54 @@ body {
     transform: translateY(0);
   }
 }
+
+@keyframes growLine {
+  0% {
+    transform: scaleX(0);
+    opacity: 0.4;
+  }
+  40% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  90% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(0);
+    opacity: 0.4;
+  }
+}
+
+@keyframes popIn {
+  0%,
+  60% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  75% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  85% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes shipMove {
+  0% {
+    left: 0%;
+  }
+  50% {
+    left: calc(100% - 1.75rem);
+  }
+  100% {
+    left: 0%;
+  }
+}

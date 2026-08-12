@@ -24,12 +24,6 @@ const POSITIONS = [
     pocket:
       "Tighter, more traditional pocket for consistent poke-checks and fast, reliable outlet clears.",
   },
-  {
-    label: "Goalie",
-    headStyle: "Wide-face goalie head",
-    pocket:
-      "Deep, forgiving pocket for maximum hold and quick, accurate outlet passes under pressure.",
-  },
 ] as const;
 
 export function PositionShowcase() {

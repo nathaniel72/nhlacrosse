@@ -1,5 +1,8 @@
 "use client";
 
+// Not currently rendered on the home page (Nathaniel didn't like the
+// placeholder look). The admin gallery Before/After tagging still works —
+// wire this back into src/app/(site)/page.tsx once real photos are tagged.
 import * as React from "react";
 import Image from "next/image";
 
