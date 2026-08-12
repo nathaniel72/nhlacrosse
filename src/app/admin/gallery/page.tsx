@@ -32,6 +32,7 @@ export default async function AdminGalleryPage() {
                 imageUrl={photo.imageUrl}
                 caption={photo.caption}
                 headModel={photo.headModel}
+                heroRole={photo.heroRole}
               />
             ))}
           </div>

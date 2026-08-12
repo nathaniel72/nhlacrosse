@@ -44,6 +44,36 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ ok: true });
 }
 
+export async function PATCH(req: NextRequest) {
+  const session = await auth();
+  if (!session?.user) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
+  const body = await req.json().catch(() => null);
+  const id = body?.id;
+  const heroRole = body?.heroRole;
+
+  if (!id || typeof id !== "string") {
+    return NextResponse.json({ message: "Missing id" }, { status: 400 });
+  }
+  if (heroRole !== null && heroRole !== "BEFORE" && heroRole !== "AFTER") {
+    return NextResponse.json({ message: "Invalid heroRole" }, { status: 400 });
+  }
+
+  await prisma.$transaction(async (tx) => {
+    if (heroRole) {
+      await tx.galleryPhoto.updateMany({
+        where: { heroRole, NOT: { id } },
+        data: { heroRole: null },
+      });
+    }
+    await tx.galleryPhoto.update({ where: { id }, data: { heroRole } });
+  });
+
+  return NextResponse.json({ ok: true });
+}
+
 export async function DELETE(req: NextRequest) {
   const session = await auth();
   if (!session?.user) {

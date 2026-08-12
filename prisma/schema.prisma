@@ -135,15 +135,21 @@ model StatusEvent {
   @@index([submissionId, createdAt])
 }
 
+enum HeroImageRole {
+  BEFORE
+  AFTER
+}
+
 model GalleryPhoto {
-  id         String   @id @default(cuid())
+  id         String         @id @default(cuid())
   imageUrl   String
   caption    String?
   headModel  String?
   pocketType String?
-  featured   Boolean  @default(false)
-  sortOrder  Int      @default(0)
-  createdAt  DateTime @default(now())
+  featured   Boolean        @default(false)
+  sortOrder  Int            @default(0)
+  heroRole   HeroImageRole?
+  createdAt  DateTime       @default(now())
 }
 
 model AdminUser {

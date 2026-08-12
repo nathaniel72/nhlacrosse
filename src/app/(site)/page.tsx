@@ -1,5 +1,9 @@
+import { prisma } from "@/lib/prisma";
 import { IntakeForm } from "@/components/IntakeForm";
 import { Card } from "@/components/ui/Card";
+import { BeforeAfterSlider } from "@/components/BeforeAfterSlider";
+import { PositionShowcase } from "@/components/PositionShowcase";
+import { Reveal } from "@/components/Reveal";
 
 const steps = [
   {
@@ -16,10 +20,17 @@ const steps = [
   },
 ];
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const [beforePhoto, afterPhoto] = await Promise.all([
+    prisma.galleryPhoto.findFirst({ where: { heroRole: "BEFORE" } }),
+    prisma.galleryPhoto.findFirst({ where: { heroRole: "AFTER" } }),
+  ]);
+
   return (
     <div>
-      <section className="border-b border-border bg-white">
+      <section className="hero-texture border-b border-border bg-white">
         <div className="container-page grid gap-10 py-16 sm:py-24 lg:grid-cols-2 lg:items-center">
           <div>
             <p className="text-sm font-semibold uppercase tracking-widest text-accent">
@@ -40,19 +51,47 @@ export default function Home() {
               Start Your Request
             </a>
           </div>
-          <div className="grid gap-4">
+          <BeforeAfterSlider
+            beforeSrc={beforePhoto?.imageUrl}
+            afterSrc={afterPhoto?.imageUrl}
+          />
+        </div>
+      </section>
+
+      <section className="container-page py-16 sm:py-20">
+        <Reveal>
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-2xl font-bold text-navy sm:text-3xl">
+              Built around your position, dialed in on your film
+            </h2>
+            <p className="mt-2 text-muted">
+              Every recommendation starts here, then gets refined once I watch
+              how you actually play.
+            </p>
+          </div>
+        </Reveal>
+        <Reveal delayMs={100} className="mx-auto mt-8 max-w-2xl">
+          <PositionShowcase />
+        </Reveal>
+      </section>
+
+      <section className="border-t border-border bg-surface-muted py-16 sm:py-20">
+        <div className="container-page">
+          <div className="grid gap-4 sm:grid-cols-3">
             {steps.map((step, i) => (
-              <Card key={step.title}>
-                <div className="flex items-start gap-4">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-bold text-white">
-                    {i + 1}
-                  </span>
-                  <div>
-                    <h3 className="font-semibold text-navy">{step.title}</h3>
-                    <p className="mt-1 text-sm text-muted">{step.body}</p>
+              <Reveal key={step.title} delayMs={i * 100}>
+                <Card>
+                  <div className="flex items-start gap-4">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-bold text-white">
+                      {i + 1}
+                    </span>
+                    <div>
+                      <h3 className="font-semibold text-navy">{step.title}</h3>
+                      <p className="mt-1 text-sm text-muted">{step.body}</p>
+                    </div>
                   </div>
-                </div>
-              </Card>
+                </Card>
+              </Reveal>
             ))}
           </div>
         </div>
