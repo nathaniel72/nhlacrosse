@@ -201,7 +201,11 @@ export default async function AdminSubmissionDetailPage({
             </div>
           ) : (
             <div className="mt-4">
-              <RecommendationForm submissionId={submission.id} stringCatalog={stringCatalog} />
+              <RecommendationForm
+                submissionId={submission.id}
+                position={submission.position}
+                stringCatalog={stringCatalog}
+              />
             </div>
           )}
         </Card>

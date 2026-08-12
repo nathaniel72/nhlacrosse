@@ -6,6 +6,7 @@ import { Field } from "@/components/ui/Field";
 import { Input, Textarea } from "@/components/ui/inputs";
 import { Button } from "@/components/ui/Button";
 import { formatCents } from "@/lib/constants";
+import { POSITION_GUIDANCE } from "@/lib/positionGuidance";
 
 type HeadOptionDraft = {
   name: string;
@@ -23,9 +24,11 @@ const emptyHeadOption: HeadOptionDraft = {
 
 export function RecommendationForm({
   submissionId,
+  position,
   stringCatalog,
 }: {
   submissionId: string;
+  position: string;
   stringCatalog: { id: string; name: string; color: string | null; priceCents: number }[];
 }) {
   const router = useRouter();
@@ -166,6 +169,15 @@ export function RecommendationForm({
       </div>
 
       <Field label="Pocket Notes" htmlFor="pocketNotes" required>
+        {POSITION_GUIDANCE[position] ? (
+          <button
+            type="button"
+            onClick={() => setPocketNotes(POSITION_GUIDANCE[position].pocketNotes)}
+            className="inline-flex self-start rounded-full border border-accent px-3 py-1 text-xs font-semibold text-accent hover:bg-accent/10"
+          >
+            Use {position} starter text
+          </button>
+        ) : null}
         <Textarea
           id="pocketNotes"
           required
