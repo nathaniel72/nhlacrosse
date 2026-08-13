@@ -15,16 +15,14 @@ export const RUSH_STRINGING_DAYS = "1-2 days";
 export const RESTRING_GUARANTEE_DAYS = 30;
 export const TEAM_ORDER_RATE_CENTS = 2000;
 
-// Where athletes should ship the head they purchase. This is a sample
-// address for now — swap in your real business shipping address before
-// going live.
+// Where athletes should ship the head they purchase.
 export const STRINGER_SHIP_TO = {
   name: "Nathaniel Hunt / NH Lacrosse",
-  line1: "42 Elm Street",
-  line2: "Unit 3",
-  city: "Manchester",
+  line1: "70 Atkinson St.",
+  line2: "Unit A",
+  city: "Dover",
   state: "NH",
-  postalCode: "03101",
+  postalCode: "03820",
   country: "USA",
 };
 
