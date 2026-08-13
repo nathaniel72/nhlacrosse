@@ -68,6 +68,19 @@ export function EmailLayout({
             </Heading>
             {children}
           </Section>
+          <Section style={{ padding: "0 32px 24px" }}>
+            <Text style={{ color: "#94a3b8", fontSize: 12, lineHeight: "18px" }}>
+              Save this email — it has your link to check status and pay. Lost
+              it?{" "}
+              <a
+                href={`${process.env.NEXT_PUBLIC_SITE_URL ?? "https://nhlacrosse.com"}/find-order`}
+                style={{ color: "#94a3b8" }}
+              >
+                Recover it here
+              </a>
+              .
+            </Text>
+          </Section>
         </Container>
       </Body>
     </Html>

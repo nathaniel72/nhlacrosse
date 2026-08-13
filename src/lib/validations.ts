@@ -116,3 +116,7 @@ export const teamInquirySchema = z.object({
 });
 
 export type TeamInquiryInput = z.infer<typeof teamInquirySchema>;
+
+export const findOrderSchema = z.object({
+  email: z.string().trim().email("Enter a valid email"),
+});

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { Card } from "@/components/ui/Card";
@@ -104,6 +105,13 @@ export default async function PayPage({
         Not sure this is the right call? Reply to your recommendation email
         and we&apos;ll talk it through — every job is backed by a free restring
         if the pocket isn&apos;t right.
+      </p>
+      <p className="mt-2 text-sm text-muted">
+        Bookmark this page to come back later. Lost it?{" "}
+        <Link href="/find-order" className="text-accent hover:underline">
+          Recover your link
+        </Link>
+        .
       </p>
     </div>
   );

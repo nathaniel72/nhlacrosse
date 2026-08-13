@@ -38,7 +38,9 @@ export default async function StatusPage({
     <div className="container-page max-w-lg py-16 sm:py-20">
       {submitted ? (
         <p className="mb-6 rounded-lg bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
-          Submission received — I&apos;ll be in touch within 48 hours.
+          Submission received — I&apos;ll be in touch within 48 hours. Bookmark
+          this page (or check your email) to come back and check status or
+          pay later.
         </p>
       ) : null}
       {paid ? (
@@ -162,6 +164,13 @@ export default async function StatusPage({
 
       <p className="mt-10 text-sm text-muted">
         Questions? <Link href="/about" className="text-accent hover:underline">Learn more about how I work</Link>.
+      </p>
+      <p className="mt-2 text-sm text-muted">
+        Bookmark this page to check back later. Lost it?{" "}
+        <Link href="/find-order" className="text-accent hover:underline">
+          Recover your link
+        </Link>
+        .
       </p>
     </div>
   );

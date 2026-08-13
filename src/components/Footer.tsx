@@ -19,6 +19,9 @@ export function Footer() {
           <Link href="/team-orders" className="hover:text-accent">
             Team Orders
           </Link>
+          <Link href="/find-order" className="hover:text-accent">
+            Find My Order
+          </Link>
           <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className="hover:text-accent">
             {INSTAGRAM_HANDLE}
           </a>
