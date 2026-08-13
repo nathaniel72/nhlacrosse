@@ -2,6 +2,7 @@ import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { Badge } from "@/components/ui/Badge";
 import { Card } from "@/components/ui/Card";
+import { DeleteSubmissionButton } from "@/components/admin/DeleteSubmissionButton";
 import { PLAYER_LEVEL_LABELS, REVIEW_SLA_HOURS, STATUS_LABELS } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
@@ -55,32 +56,35 @@ export default async function AdminDashboardPage() {
               (s.status === "SUBMITTED" || s.status === "REVIEWED") &&
               hoursSince(s.createdAt) > REVIEW_SLA_HOURS;
             return (
-              <Link key={s.id} href={`/admin/submissions/${s.id}`}>
-                <Card
-                  className={`flex flex-wrap items-center justify-between gap-4 transition hover:border-accent ${
-                    overdue ? "border-red-300 bg-red-50" : ""
-                  }`}
+              <Card
+                key={s.id}
+                className={`flex flex-wrap items-center justify-between gap-4 ${
+                  overdue ? "border-red-300 bg-red-50" : ""
+                }`}
+              >
+                <Link
+                  href={`/admin/submissions/${s.id}`}
+                  className="flex-1 transition hover:text-accent"
                 >
-                  <div>
-                    <p className="font-semibold text-navy">{s.athleteName}</p>
-                    <p className="text-sm text-muted">
-                      {PLAYER_LEVEL_LABELS[s.level] ?? s.level} &middot; {s.position}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    {s.serviceType === "RESTRING_ONLY" ? (
-                      <Badge tone="accent">Restring Only</Badge>
-                    ) : null}
-                    {overdue ? <Badge tone="warn">Past SLA</Badge> : null}
-                    <Badge tone={statusTone(s.status)}>
-                      {STATUS_LABELS[s.status] ?? s.status}
-                    </Badge>
-                    <span className="text-xs text-muted">
-                      {s.createdAt.toLocaleDateString()}
-                    </span>
-                  </div>
-                </Card>
-              </Link>
+                  <p className="font-semibold text-navy">{s.athleteName}</p>
+                  <p className="text-sm text-muted">
+                    {PLAYER_LEVEL_LABELS[s.level] ?? s.level} &middot; {s.position}
+                  </p>
+                </Link>
+                <div className="flex items-center gap-3">
+                  {s.serviceType === "RESTRING_ONLY" ? (
+                    <Badge tone="accent">Restring Only</Badge>
+                  ) : null}
+                  {overdue ? <Badge tone="warn">Past SLA</Badge> : null}
+                  <Badge tone={statusTone(s.status)}>
+                    {STATUS_LABELS[s.status] ?? s.status}
+                  </Badge>
+                  <span className="text-xs text-muted">
+                    {s.createdAt.toLocaleDateString()}
+                  </span>
+                  <DeleteSubmissionButton id={s.id} athleteName={s.athleteName} />
+                </div>
+              </Card>
             );
           })
         )}

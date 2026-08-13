@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { RecommendationForm } from "@/components/admin/RecommendationForm";
+import { DeleteSubmissionButton } from "@/components/admin/DeleteSubmissionButton";
 import {
   PLAYER_LEVEL_LABELS,
   STATUS_LABELS,
@@ -78,11 +79,16 @@ export default async function AdminSubmissionDetailPage({
               {submission.athleteName}
             </h1>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             {submission.serviceType === "RESTRING_ONLY" ? (
               <Badge tone="accent">Restring Only</Badge>
             ) : null}
             <Badge>{STATUS_LABELS[submission.status] ?? submission.status}</Badge>
+            <DeleteSubmissionButton
+              id={submission.id}
+              athleteName={submission.athleteName}
+              redirectTo="/admin"
+            />
           </div>
         </div>
 
