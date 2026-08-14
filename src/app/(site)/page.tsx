@@ -5,6 +5,7 @@ import { PositionShowcase } from "@/components/PositionShowcase";
 import { Reveal } from "@/components/Reveal";
 import { StepVisual } from "@/components/StepVisual";
 import { Testimonials } from "@/components/Testimonials";
+import { FAQ } from "@/components/FAQ";
 
 const steps = [
   {
@@ -103,6 +104,8 @@ export default async function Home() {
       </section>
 
       <Testimonials testimonials={testimonials} />
+
+      <FAQ />
 
       <section id="intake-form" className="container-page py-16 sm:py-20 scroll-mt-16">
         <div className="mx-auto max-w-2xl">

@@ -4,6 +4,7 @@ import { INSTAGRAM_URL } from "@/lib/constants";
 const links = [
   { href: "/", label: "Get Strung" },
   { href: "/gallery", label: "Gallery" },
+  { href: "/roster", label: "Roster" },
   { href: "/about", label: "About" },
   { href: "/merch", label: "Merch" },
   { href: "/team-orders", label: "Team Orders" },

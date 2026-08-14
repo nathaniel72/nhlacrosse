@@ -168,6 +168,19 @@ model Testimonial {
   createdAt    DateTime @default(now())
 }
 
+// Athletes strung for, shown on the public /roster page as social proof
+// (photo + name + program). Distinct from TeamInquiry, which is the
+// coach/bulk-order contact form.
+model RosterAthlete {
+  id          String   @id @default(cuid())
+  athleteName String
+  program     String?
+  photoUrl    String
+  featured    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+}
+
 model TeamInquiry {
   id          String   @id @default(cuid())
   contactName String
