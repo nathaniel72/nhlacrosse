@@ -105,8 +105,6 @@ export default async function Home() {
 
       <Testimonials testimonials={testimonials} />
 
-      <FAQ />
-
       <section id="intake-form" className="container-page py-16 sm:py-20 scroll-mt-16">
         <div className="mx-auto max-w-2xl">
           <h2 className="text-2xl font-bold text-navy sm:text-3xl">
@@ -121,6 +119,8 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      <FAQ />
     </div>
   );
 }
