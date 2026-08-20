@@ -75,16 +75,6 @@ body {
   filter: blur(20px);
 }
 
-.hero-ribbon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: -1;
-  width: 220px;
-  height: 220px;
-  overflow: hidden;
-  pointer-events: none;
-}
 
 @keyframes fadeIn {
   from {
