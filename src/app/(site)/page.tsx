@@ -6,6 +6,18 @@ import { Reveal } from "@/components/Reveal";
 import { StepVisual } from "@/components/StepVisual";
 import { Testimonials } from "@/components/Testimonials";
 import { FAQ } from "@/components/FAQ";
+import {
+  REVIEW_SLA_HOURS,
+  RESTRING_GUARANTEE_DAYS,
+  BASE_STRINGING_FEE_CENTS,
+} from "@/lib/constants";
+
+const trustBadges = [
+  "15 Years Stringing",
+  `${REVIEW_SLA_HOURS}-Hr Film Review`,
+  `${RESTRING_GUARANTEE_DAYS}-Day Guarantee`,
+  `From $${BASE_STRINGING_FEE_CENTS / 100}`,
+];
 
 const steps = [
   {
@@ -36,12 +48,13 @@ export default async function Home() {
   return (
     <div>
       <section className="hero-texture border-b border-border bg-white">
+        <div className="hero-ribbon hidden sm:block" aria-hidden="true" />
         <div className="container-page py-16 sm:py-24">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-sm font-semibold uppercase tracking-widest text-accent">
               15 years stringing &middot; former Dick&apos;s Sporting Goods lacrosse specialist
             </p>
-            <h1 className="mt-4 text-4xl font-bold leading-tight text-navy sm:text-5xl">
+            <h1 className="mt-4 font-display text-5xl uppercase leading-[0.98] tracking-tight text-navy sm:text-6xl">
               A stick strung around <span className="text-accent">how you play</span>, not just what&apos;s trending.
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-lg text-muted">
@@ -59,6 +72,16 @@ export default async function Home() {
             >
               Start Your Request
             </a>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
+              {trustBadges.map((badge) => (
+                <span
+                  key={badge}
+                  className="rounded-full border border-border bg-surface-muted px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wide text-navy"
+                >
+                  {badge}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -66,7 +89,7 @@ export default async function Home() {
       <section className="container-page py-16 sm:py-20">
         <Reveal>
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-2xl font-bold text-navy sm:text-3xl">
+            <h2 className="font-display text-3xl uppercase tracking-tight text-navy sm:text-4xl">
               Built around your position, dialed in on your film
             </h2>
             <p className="mt-2 text-muted">
@@ -88,7 +111,7 @@ export default async function Home() {
                 <Card>
                   <StepVisual variant={step.visual} />
                   <div className="mt-4 flex items-start gap-4">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-bold text-white">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent font-display text-base text-white ring-2 ring-gold ring-offset-2 ring-offset-surface">
                       {i + 1}
                     </span>
                     <div>
@@ -107,7 +130,7 @@ export default async function Home() {
 
       <section id="intake-form" className="container-page py-16 sm:py-20 scroll-mt-16">
         <div className="mx-auto max-w-2xl">
-          <h2 className="text-2xl font-bold text-navy sm:text-3xl">
+          <h2 className="font-display text-3xl uppercase tracking-tight text-navy sm:text-4xl">
             Tell me about your game
           </h2>
           <p className="mt-2 text-muted">

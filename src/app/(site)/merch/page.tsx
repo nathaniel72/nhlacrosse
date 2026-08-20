@@ -17,7 +17,7 @@ export default async function MerchPage() {
         <p className="text-sm font-semibold uppercase tracking-widest text-accent">
           Merch
         </p>
-        <h1 className="mt-3 text-3xl font-bold text-navy sm:text-4xl">
+        <h1 className="mt-3 font-display text-3xl uppercase tracking-tight text-navy sm:text-4xl">
           Coming soon
         </h1>
         <p className="mt-4 max-w-md text-muted">
@@ -36,7 +36,7 @@ export default async function MerchPage() {
       <p className="text-sm font-semibold uppercase tracking-widest text-accent">
         Merch
       </p>
-      <h1 className="mt-3 text-3xl font-bold text-navy sm:text-4xl">
+      <h1 className="mt-3 font-display text-3xl uppercase tracking-tight text-navy sm:text-4xl">
         Gear
       </h1>
 

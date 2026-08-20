@@ -23,8 +23,11 @@ function InstagramIcon() {
 export function Nav() {
   return (
     <header className="border-b border-border bg-white text-navy">
+      <div className="bg-navy py-1.5 text-center text-[11px] font-semibold uppercase tracking-widest text-white">
+        Film Review &amp; Recommendation <span className="text-gold">&mdash;</span> Always Free
+      </div>
       <div className="container-page flex h-16 items-center justify-between">
-        <Link href="/" className="font-bold tracking-tight text-lg">
+        <Link href="/" className="font-display text-2xl uppercase tracking-tight">
           <span className="text-accent">NH</span> Lacrosse
         </Link>
         <nav className="hidden items-center gap-6 text-sm font-medium sm:flex">

@@ -13,7 +13,7 @@ export default function TeamOrdersPage() {
         <p className="text-sm font-semibold uppercase tracking-widest text-accent">
           Team Orders
         </p>
-        <h1 className="mt-3 text-3xl font-bold text-navy sm:text-4xl">
+        <h1 className="mt-3 font-display text-3xl uppercase tracking-tight text-navy sm:text-4xl">
           Stringing up a whole roster?
         </h1>
         <p className="mt-4 text-muted">

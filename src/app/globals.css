@@ -28,6 +28,7 @@
   --color-muted: var(--muted);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-anton);
 }
 
 body {
@@ -54,8 +55,10 @@ body {
   position: absolute;
   inset: 0;
   z-index: -2;
-  background-image: radial-gradient(var(--border) 1px, transparent 1px);
-  background-size: 22px 22px;
+  background-image:
+    linear-gradient(45deg, var(--border) 1px, transparent 1px),
+    linear-gradient(-45deg, var(--border) 1px, transparent 1px);
+  background-size: 26px 26px;
   mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
   -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
 }
@@ -64,12 +67,41 @@ body {
   content: "";
   position: absolute;
   z-index: -1;
-  top: -10%;
-  right: -10%;
-  width: 40%;
-  height: 60%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--gold) 22%, transparent) 0%, transparent 70%);
+  top: -14%;
+  right: -12%;
+  width: 46%;
+  height: 68%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--gold) 26%, transparent) 0%, transparent 70%);
   filter: blur(20px);
+}
+
+.hero-ribbon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  width: 220px;
+  height: 220px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-ribbon::before {
+  content: "";
+  position: absolute;
+  top: 34px;
+  right: -64px;
+  width: 260px;
+  height: 34px;
+  transform: rotate(45deg);
+  background: linear-gradient(
+    90deg,
+    var(--accent) 0%,
+    var(--accent) 68%,
+    var(--gold) 68%,
+    var(--gold) 76%,
+    transparent 76%
+  );
 }
 
 @keyframes fadeIn {

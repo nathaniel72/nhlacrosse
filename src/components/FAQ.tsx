@@ -56,7 +56,7 @@ export function FAQ() {
     <section className="border-t border-border bg-surface-muted py-16 sm:py-20">
       <div className="container-page">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-2xl font-bold text-navy sm:text-3xl">
+          <h2 className="font-display text-2xl uppercase tracking-tight text-navy sm:text-3xl">
             Frequently asked questions
           </h2>
         </div>

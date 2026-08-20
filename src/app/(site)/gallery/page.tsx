@@ -19,7 +19,7 @@ export default async function GalleryPage() {
         <p className="text-sm font-semibold uppercase tracking-widest text-accent">
           Gallery
         </p>
-        <h1 className="mt-3 text-3xl font-bold text-navy sm:text-4xl">
+        <h1 className="mt-3 font-display text-3xl uppercase tracking-tight text-navy sm:text-4xl">
           Recent work
         </h1>
         <p className="mt-3 text-muted">

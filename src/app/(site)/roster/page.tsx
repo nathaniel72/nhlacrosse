@@ -20,7 +20,7 @@ export default async function RosterPage() {
         <p className="text-sm font-semibold uppercase tracking-widest text-accent">
           Roster
         </p>
-        <h1 className="mt-3 text-3xl font-bold text-navy sm:text-4xl">
+        <h1 className="mt-3 font-display text-3xl uppercase tracking-tight text-navy sm:text-4xl">
           Athletes I&apos;ve strung for
         </h1>
         <p className="mt-3 text-muted">

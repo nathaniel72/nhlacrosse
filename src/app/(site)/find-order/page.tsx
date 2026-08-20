@@ -12,7 +12,7 @@ export default function FindOrderPage() {
         <p className="text-sm font-semibold uppercase tracking-widest text-accent">
           Find My Order
         </p>
-        <h1 className="mt-3 text-3xl font-bold text-navy sm:text-4xl">
+        <h1 className="mt-3 font-display text-3xl uppercase tracking-tight text-navy sm:text-4xl">
           Lost your link?
         </h1>
         <p className="mt-4 text-muted">

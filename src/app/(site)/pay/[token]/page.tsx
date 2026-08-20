@@ -35,7 +35,7 @@ export default async function PayPage({
       <p className="text-sm font-semibold uppercase tracking-widest text-accent">
         Your Recommendation
       </p>
-      <h1 className="mt-2 text-3xl font-bold text-navy">
+      <h1 className="mt-2 font-display text-3xl uppercase tracking-tight text-navy">
         {submission.athleteName}
       </h1>
 
