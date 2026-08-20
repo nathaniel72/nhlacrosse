@@ -48,7 +48,43 @@ export default async function Home() {
   return (
     <div>
       <section className="hero-texture border-b border-border bg-white">
-        <div className="hero-ribbon hidden sm:block" aria-hidden="true" />
+        <div className="hero-ribbon hidden sm:block" aria-hidden="true">
+          <svg viewBox="0 0 220 220" width="220" height="220">
+            <g transform="translate(230,-8)">
+              <g transform="rotate(-28)">
+                <path
+                  d="M -15,4 C -15,-6 15,-6 15,4 C 15,44 5,94 0,110 C -5,94 -15,44 -15,4 Z"
+                  fill="var(--navy)"
+                />
+              </g>
+              <g transform="rotate(-45)">
+                <path
+                  d="M -13,4 C -13,-6 13,-6 13,4 C 13,60 5,128 0,150 C -5,128 -13,60 -13,4 Z"
+                  fill="var(--navy)"
+                />
+              </g>
+              <g transform="rotate(-62)">
+                <path
+                  d="M -10,4 C -10,-6 10,-6 10,4 C 10,74 4,157 0,185 C -4,157 -10,74 -10,4 Z"
+                  fill="var(--navy)"
+                />
+              </g>
+              <g transform="translate(-14,18) rotate(-45)">
+                <path
+                  d="M -22,-8 C -8,-16 10,-14 20,-4 C 12,6 -6,8 -18,2 C -22,-1 -23,-5 -22,-8 Z"
+                  fill="var(--accent)"
+                />
+                <path
+                  d="M -20,4 C -6,12 8,10 18,2"
+                  stroke="var(--gold)"
+                  strokeWidth="3.5"
+                  fill="none"
+                  strokeLinecap="round"
+                />
+              </g>
+            </g>
+          </svg>
+        </div>
         <div className="container-page py-16 sm:py-24">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-sm font-semibold uppercase tracking-widest text-accent">

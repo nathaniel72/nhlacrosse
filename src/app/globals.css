@@ -86,24 +86,6 @@ body {
   pointer-events: none;
 }
 
-.hero-ribbon::before {
-  content: "";
-  position: absolute;
-  top: 34px;
-  right: -64px;
-  width: 260px;
-  height: 34px;
-  transform: rotate(45deg);
-  background: linear-gradient(
-    90deg,
-    var(--accent) 0%,
-    var(--accent) 68%,
-    var(--gold) 68%,
-    var(--gold) 76%,
-    transparent 76%
-  );
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
