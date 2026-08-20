@@ -8,8 +8,9 @@
   --border: #e4e4e7;
   --navy: #0a0a0a;
   --navy-light: #27272a;
-  --accent: #2563eb;
-  --accent-hover: #1d4ed8;
+  --accent: #c22a17;
+  --accent-hover: #9c2112;
+  --gold: #e0a63e;
   --muted: #52525b;
 }
 
@@ -23,6 +24,7 @@
   --color-navy-light: var(--navy-light);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
+  --color-gold: var(--gold);
   --color-muted: var(--muted);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -66,7 +68,7 @@ body {
   right: -10%;
   width: 40%;
   height: 60%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 18%, transparent) 0%, transparent 70%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--gold) 22%, transparent) 0%, transparent 70%);
   filter: blur(20px);
 }
 

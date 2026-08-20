@@ -44,7 +44,7 @@ export function EmailLayout({
           <Section style={{ backgroundColor: "#0a0a0a", padding: "20px 32px" }}>
             <Text
               style={{
-                color: "#2563eb",
+                color: "#e0a63e",
                 fontWeight: 700,
                 fontSize: 14,
                 letterSpacing: 1,
@@ -94,7 +94,7 @@ export const emailText = {
 };
 
 export const emailButton = {
-  backgroundColor: "#2563eb",
+  backgroundColor: "#c22a17",
   borderRadius: 8,
   color: "#ffffff",
   display: "inline-block",

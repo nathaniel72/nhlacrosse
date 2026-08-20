@@ -37,7 +37,7 @@ export function AdminNewSubmissionEmail({
       heading="New stringing request"
     >
       {isRestringOnly ? (
-        <Text style={{ ...emailText, fontWeight: 700, color: "#2563eb", marginBottom: 0 }}>
+        <Text style={{ ...emailText, fontWeight: 700, color: "#c22a17", marginBottom: 0 }}>
           RESTRING ONLY — no head recommendation needed
         </Text>
       ) : null}

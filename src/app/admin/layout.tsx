@@ -25,7 +25,7 @@ export default async function AdminLayout({
 
   return (
     <html lang="en" className="h-full antialiased">
-      <body className="min-h-full bg-surface-muted">
+      <body className="min-h-full bg-background">
         <header className="border-b border-border bg-white text-navy">
           <div className="container-page flex min-h-16 flex-wrap items-center justify-between gap-x-6 gap-y-3 py-3">
             <Link href="/admin" className="font-bold">

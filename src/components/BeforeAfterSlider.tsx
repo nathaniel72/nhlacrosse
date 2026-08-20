@@ -10,7 +10,7 @@ function PlaceholderPocket({ variant }: { variant: "before" | "after" }) {
   const worn = variant === "before";
   return (
     <svg viewBox="0 0 300 360" className="h-full w-full" aria-hidden="true">
-      <rect width="300" height="360" fill={worn ? "#f4f4f5" : "#eef2ff"} />
+      <rect width="300" height="360" fill={worn ? "#f4f4f5" : "#fbeeea"} />
       <path
         d="M60 40 C40 90 40 260 90 310 C140 350 200 340 230 290 C260 240 250 100 210 55 C170 15 90 -5 60 40Z"
         fill="none"
@@ -29,7 +29,7 @@ function PlaceholderPocket({ variant }: { variant: "before" | "after" }) {
               y1={y1}
               x2={x1 + 26 + jitter}
               y2={y1 + 34}
-              stroke={worn ? "#d4d4d8" : "#2563eb"}
+              stroke={worn ? "#d4d4d8" : "#c22a17"}
               strokeWidth={worn ? 1.5 : 2.5}
               strokeLinecap="round"
               opacity={worn ? 0.7 : 0.9}
